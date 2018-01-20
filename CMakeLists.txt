@@ -10,7 +10,7 @@ SET(PROJECT_NAME_ORIG "dccomms_packets" )
 #SET DEPENDENCIES DIRECTORY
 #NOTE: replace "gitsubmodules" by the directory name where your
 #      cmake based git submodules are"
-SET(MODULES_DIR "gitsubmodules" )
+SET(MODULES_DIR "modules" )
 
 message("Building ${PROJECT_NAME_ORIG}...")
 
@@ -92,39 +92,33 @@ ENDFOREACH()
 ##################################
 
 ## Add support for C++11, supported in ROS Kinetic and newer
-#add_definitions(-fPIC -std=c++11)
+add_definitions(-fPIC -std=c++11)
 
-#SET(SRCPATH src/)
-#SET(${PROJECT_NAME}_INCLUDE_DIRS
-#    ${CMAKE_CURRENT_SOURCE_DIR}/${SRCPATH}include
-#    ${${DEP0_GIT}_INCLUDE_DIRS}
-#    ${${DEP1_GIT}_INCLUDE_DIRS}
-#)
+SET(SRCPATH src/)
+SET(${PROJECT_NAME}_INCLUDE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/${SRCPATH}include
+    ${${DCCOMMS_GIT}_INCLUDE_DIRS}
+)
 
-#include_directories(
-#  ${${PROJECT_NAME}_INCLUDE_DIRS}
-#)
+include_directories(
+  ${${PROJECT_NAME}_INCLUDE_DIRS}
+)
 
-#SET(${PROJECT_NAME}_CPP_FILES
-#                        ${SRCPATH}module0.cpp
-#                        ${SRCPATH}module1.cpp
-#                            ...
-#                        )
+SET(${PROJECT_NAME}_CPP_FILES
+                        ${SRCPATH}SimplePacket.cpp
+                        )
 
-#add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_CPP_FILES})
-#target_link_libraries(${PROJECT_NAME} ${LIB2_GIT})
-#target_include_directories(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_INCLUDE_DIRS})
+add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_CPP_FILES})
+target_link_libraries(${PROJECT_NAME} ${DCCOMMS_GIT})
+target_include_directories(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_INCLUDE_DIRS})
 
-#add_executable (main ${SRCPATH}main/main.cpp)
-#target_link_libraries(main ${LIB2_GIT} ... ${PROJECT_NAME})
+SET(${PROJECT_NAME}_INCLUDE_DIRS ${${PROJECT_NAME}_INCLUDE_DIRS} PARENT_SCOPE)
+SET(${PROJECT_NAME}_LIBRARIES ${PROJECT_NAME} ${${DCCOMMS_GIT}_LIBRARIES} PARENT_SCOPE)
 
-#SET(${PROJECT_NAME}_INCLUDE_DIRS ${${PROJECT_NAME}_INCLUDE_DIRS} PARENT_SCOPE)
-#SET(${PROJECT_NAME}_LIBRARIES ${PROJECT_NAME} ${${DEP0_GIT}_LIBRARIES} ${${DEP1_GIT}_LIBRARIES} PARENT_SCOPE)
-
-#install(TARGETS ${PROJECT_NAME} main
-#        LIBRARY DESTINATION "lib"
-#        RUNTIME DESTINATION "bin"
-#        )
-#install(DIRECTORY "${SRCPATH}include/${PROJECT_NAME}" DESTINATION "include")
+install(TARGETS ${PROJECT_NAME}
+        LIBRARY DESTINATION "lib"
+        RUNTIME DESTINATION "bin"
+        )
+install(DIRECTORY "${SRCPATH}include/${PROJECT_NAME}" DESTINATION "include")
 
 message("End ${PROJECT_NAME_ORIG}")
