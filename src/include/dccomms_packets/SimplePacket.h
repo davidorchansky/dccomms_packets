@@ -1,5 +1,6 @@
 /*
- * This packet is a copy of wireless_ardusub::SimplePacket (wireless_ardusub project)
+ * This packet is a copy of wireless_ardusub::SimplePacket (wireless_ardusub
+ * project)
  */
 
 #ifndef DCCOMMS_PACKETS_SIMPLEPACKET_H_
@@ -25,7 +26,6 @@ public:
 
   void GetPayload(void *copy, int size);
   void SetPayload(const void *data, int size);
-
 
   void UpdateFCS();
 
@@ -53,10 +53,11 @@ public:
     return pkt;
   }
   PacketPtr Create() { return CreateObject<SimplePacket>(_payloadSize, _fcs); }
+  std::string GetName() { return "SimplePacketBuilder"; }
 
 private:
   int _payloadSize;
   FCS _fcs;
 };
 }
-#endif //DCCOMMS_PACKETS_SIMPLEPACKET_H_
+#endif // DCCOMMS_PACKETS_SIMPLEPACKET_H_
