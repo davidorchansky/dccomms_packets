@@ -53,11 +53,17 @@ public:
     return pkt;
   }
   PacketPtr Create() { return CreateObject<SimplePacket>(_payloadSize, _fcs); }
-  std::string GetName() { return "SimplePacketBuilder"; }
 
 private:
   int _payloadSize;
   FCS _fcs;
 };
+
+class SimplePacketBuilder20Bcrc16 : public SimplePacketBuilder {
+public:
+  SimplePacketBuilder20Bcrc16() : SimplePacketBuilder(20, FCS::CRC16) {}
+  std::string GetName() { return "SimplePacketBuilder20crc16"; }
+};
 }
+
 #endif // DCCOMMS_PACKETS_SIMPLEPACKET_H_
