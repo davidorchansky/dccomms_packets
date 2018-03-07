@@ -125,6 +125,7 @@ include_directories(
 
 SET(${PROJECT_NAME}_CPP_FILES
                         ${SRCPATH}SimplePacket.cpp
+                        ${SRCPATH}ExternalPacketsExporter.cpp
                         )
 
 SET(PROJECT_LIBRARIES ${${DCCOMMS_GIT}_LIBRARIES})

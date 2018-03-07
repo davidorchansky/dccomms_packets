@@ -59,10 +59,9 @@ private:
   FCS _fcs;
 };
 
-class SimplePacketBuilder20Bcrc16 : public SimplePacketBuilder {
+class SimplePacketBuilder20crc16 : public SimplePacketBuilder {
 public:
-  SimplePacketBuilder20Bcrc16() : SimplePacketBuilder(20, FCS::CRC16) {}
-  std::string GetName() { return "SimplePacketBuilder20crc16"; }
+  SimplePacketBuilder20crc16() : SimplePacketBuilder(20, FCS::CRC16) {}
 };
 }
 
