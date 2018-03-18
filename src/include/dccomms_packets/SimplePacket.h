@@ -25,7 +25,7 @@ public:
   bool PacketIsOk();
 
   void GetPayload(void *copy, int size);
-  void SetPayload(const void *data, int size);
+  uint32_t SetPayload(uint8_t *data, uint32_t size);
 
   void UpdateFCS();
 

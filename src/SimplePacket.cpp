@@ -39,9 +39,10 @@ void SimplePacket::GetPayload(void *copy, int size) {
   memcpy(copy, _payload, copySize);
 }
 
-void SimplePacket::SetPayload(const void *data, int size) {
+uint32_t SimplePacket::SetPayload(uint8_t *data, uint32_t size) {
   auto copySize = PAYLOAD_SIZE < size ? PAYLOAD_SIZE : size;
   memcpy(_payload, data, copySize);
+  return copySize;
 }
 
 void SimplePacket::UpdateFCS() {
