@@ -140,6 +140,6 @@ install(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION "lib"
         RUNTIME DESTINATION "bin"
         )
-install(DIRECTORY "${SRCPATH}include/${PROJECT_NAME}" DESTINATION "include")
+install(DIRECTORY "${SRCPATH}include/${PROJECT_NAME_ORIG}" DESTINATION "include")
 
 message("End ${PROJECT_NAME_ORIG}")
