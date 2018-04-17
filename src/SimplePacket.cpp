@@ -70,6 +70,8 @@ bool SimplePacket::_CheckFCS() {
 bool SimplePacket::PacketIsOk() { return _CheckFCS(); }
 
 CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder20crc16, IPacketBuilder)
+CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder9crc16, IPacketBuilder)
+CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder109crc16, IPacketBuilder)
 }
 
 

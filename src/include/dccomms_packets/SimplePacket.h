@@ -63,6 +63,18 @@ class SimplePacketBuilder20crc16 : public SimplePacketBuilder {
 public:
   SimplePacketBuilder20crc16() : SimplePacketBuilder(20, FCS::CRC16) {}
 };
+
+//Used by Operator in wirelress_ardusub
+class SimplePacketBuilder9crc16 : public SimplePacketBuilder {
+public:
+  SimplePacketBuilder9crc16() : SimplePacketBuilder(9, FCS::CRC16) {}
+};
+
+//Used by ROV in wirelress_ardusub
+class SimplePacketBuilder109crc16 : public SimplePacketBuilder {
+public:
+  SimplePacketBuilder109crc16() : SimplePacketBuilder(109, FCS::CRC16) {}
+};
 }
 
 #endif // DCCOMMS_PACKETS_SIMPLEPACKET_H_
