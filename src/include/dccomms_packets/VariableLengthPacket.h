@@ -37,7 +37,8 @@ private:
   uint8_t *_payloadSize;
   uint8_t *_payload;
   uint8_t *_fcs;
-  int _packetSize;
+  int _maxPacketSize;
+  int _overheadSize;
   void _Init();
   bool _CheckFCS();
 };
