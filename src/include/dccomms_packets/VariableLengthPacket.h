@@ -3,8 +3,8 @@
  * project)
  */
 
-#ifndef DCCOMMS_PACKETS_SIMPLEPACKET_H_
-#define DCCOMMS_PACKETS_SIMPLEPACKET_H_
+#ifndef DCCOMMS_PACKETS_VARIABLELENGTHPACKET_H_
+#define DCCOMMS_PACKETS_VARIABLELENGTHPACKET_H_
 
 #include <dccomms/dccomms.h>
 #include <dccomms_packets/types.h>
