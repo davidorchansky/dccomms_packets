@@ -127,6 +127,7 @@ SET(${PROJECT_NAME}_CPP_FILES
                         ${SRCPATH}SimplePacket.cpp
                         ${SRCPATH}ExternalPacketsExporter.cpp
                         ${SRCPATH}VariableLengthPacket.cpp
+                        ${SRCPATH}VariableLength2BPacket.cpp
                         )
 
 SET(PROJECT_LIBRARIES ${${DCCOMMS_GIT}_LIBRARIES})
