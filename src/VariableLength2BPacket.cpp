@@ -4,7 +4,7 @@
 namespace dccomms_packets {
 VariableLength2BPacket::VariableLength2BPacket() {
   FCS_SIZE = 2; // CRC16
-  MAX_PAYLOAD_SIZE = UINT16_MAX;
+  MAX_PAYLOAD_SIZE = 2048;
   _overheadSize = PRE_SIZE + 2 + FCS_SIZE;
   _maxPacketSize = _overheadSize + MAX_PAYLOAD_SIZE;
   _AllocBuffer(_maxPacketSize);
