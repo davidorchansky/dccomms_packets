@@ -3,9 +3,7 @@
 
 namespace dccomms_packets {
 VariableLength2BPacket::VariableLength2BPacket() {
-  FCS_SIZE = 2; // CRC16
-  MAX_PAYLOAD_SIZE = 2048;
-  _overheadSize = PRE_SIZE + 2 + FCS_SIZE;
+  _overheadSize = PRE_SIZE + PAYLOAD_SIZE_FIELD + FCS_SIZE;
   _maxPacketSize = _overheadSize + MAX_PAYLOAD_SIZE;
   _AllocBuffer(_maxPacketSize);
   _Init();
@@ -21,8 +19,13 @@ void VariableLength2BPacket::_Init() {
 }
 
 void VariableLength2BPacket::CopyFromRawBuffer(void *buffer) {
-  uint8_t payloadSize = *((uint8_t *)buffer + PRE_SIZE);
-  memcpy(GetBuffer(), buffer, payloadSize + _overheadSize);
+  uint8_t *ownbuf = GetBuffer();
+  uint8_t *curptr = (uint8_t*) buffer;
+  uint32_t headSize = PRE_SIZE + PAYLOAD_SIZE_FIELD;
+  memcpy(ownbuf, curptr, headSize);
+  curptr += headSize;
+  uint16_t payloadSize = _GetPayloadSize();
+  memcpy(_payload, curptr, payloadSize + FCS_SIZE);
 }
 
 inline uint8_t *VariableLength2BPacket::GetPayloadBuffer() { return _payload; }
@@ -37,10 +40,11 @@ inline int VariableLength2BPacket::GetPacketSize() {
 
 void VariableLength2BPacket::Read(Stream *stream) {
   stream->WaitFor(_pre, PRE_SIZE);
-  stream->Read(_payloadSize, 2);
-  stream->Read(_payload, _GetPayloadSize() + FCS_SIZE);
+  stream->Read(_payloadSize, PAYLOAD_SIZE_FIELD);
+  auto psize = _GetPayloadSize();
+  stream->Read(_payload, psize + FCS_SIZE);
 }
-void VariableLength2BPacket::_SetPayloadSizeField(uint32_t payloadSize) {
+void VariableLength2BPacket::_SetPayloadSizeField(uint16_t payloadSize) {
   if (_bigEndian)
     *_payloadSize = payloadSize;
   else {
@@ -49,16 +53,19 @@ void VariableLength2BPacket::_SetPayloadSizeField(uint32_t payloadSize) {
   }
 }
 
-uint32_t VariableLength2BPacket::_GetPayloadSize() {
-  uint32_t result;
+uint16_t VariableLength2BPacket::_GetPayloadSize() {
+  uint16_t result;
   if (_bigEndian) {
     result = *_payloadSize;
   } else {
     result = ((*_payloadSize) << 8) | ((*_payloadSize) >> 8);
   }
+  result = result <= MAX_PAYLOAD_SIZE ? result : 0; // if psize > MAX_PAYLOAD_SIZE ==> error on packet
+  return result;
 }
 
 void VariableLength2BPacket::PayloadUpdated(uint32_t payloadSize) {
+  payloadSize = payloadSize <= MAX_PAYLOAD_SIZE ? payloadSize : MAX_PAYLOAD_SIZE;
   _SetPayloadSizeField(payloadSize);
   _fcs = _payload + payloadSize;
   UpdateFCS();
@@ -71,7 +78,7 @@ void VariableLength2BPacket::GetPayload(void *copy, int size) {
 }
 
 uint32_t VariableLength2BPacket::SetPayload(uint8_t *data, uint32_t size) {
-  auto copySize = MAX_PAYLOAD_SIZE < size ? MAX_PAYLOAD_SIZE : size;
+  auto copySize = size <= MAX_PAYLOAD_SIZE ? size : MAX_PAYLOAD_SIZE;
   _SetPayloadSizeField(copySize);
   memcpy(_payload, data, copySize);
   _fcs = _payload + copySize;

@@ -3,8 +3,8 @@
  * project)
  */
 
-#ifndef DCCOMMS_PACKETS_VARIABLELENGTHPACKET_H_
-#define DCCOMMS_PACKETS_VARIABLELENGTHPACKET_H_
+#ifndef DCCOMMS_PACKETS_VARIABLELENGTH2BPACKET_H_
+#define DCCOMMS_PACKETS_VARIABLELENGTH2BPACKET_H_
 
 #include <dccomms/dccomms.h>
 #include <dccomms_packets/types.h>
@@ -29,10 +29,11 @@ public:
 
   void UpdateFCS();
 
-private:
-  int MAX_PAYLOAD_SIZE, FCS_SIZE;
+  static const int MAX_PAYLOAD_SIZE = 2048, PAYLOAD_SIZE_FIELD = 2,
+                   FCS_SIZE = 2; // CRC16
   static const int PRE_SIZE = 1;
 
+private:
   uint8_t *_pre;
   uint16_t *_payloadSize;
   uint8_t *_payload;
@@ -41,8 +42,8 @@ private:
   int _overheadSize;
   void _Init();
   bool _CheckFCS();
-  void _SetPayloadSizeField(uint32_t payloadSize);
-  uint32_t _GetPayloadSize();
+  void _SetPayloadSizeField(uint16_t payloadSize);
+  uint16_t _GetPayloadSize();
 };
 
 class VariableLength2BPacketBuilder : public IPacketBuilder {
