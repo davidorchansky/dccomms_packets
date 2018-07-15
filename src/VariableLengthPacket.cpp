@@ -3,9 +3,7 @@
 
 namespace dccomms_packets {
 VariableLengthPacket::VariableLengthPacket() {
-  FCS_SIZE = 2; // CRC16
-  MAX_PAYLOAD_SIZE = UINT8_MAX;
-  _overheadSize = PRE_SIZE + 1 + FCS_SIZE;
+  _overheadSize = PRE_SIZE + PAYLOAD_SIZE_FIELD + FCS_SIZE;
   _maxPacketSize = _overheadSize + MAX_PAYLOAD_SIZE;
   _AllocBuffer(_maxPacketSize);
   _Init();

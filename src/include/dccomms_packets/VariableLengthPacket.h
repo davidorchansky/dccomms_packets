@@ -29,9 +29,11 @@ public:
 
   void UpdateFCS();
 
-private:
-  int MAX_PAYLOAD_SIZE, FCS_SIZE;
+  static const int MAX_PAYLOAD_SIZE = UINT8_MAX, PAYLOAD_SIZE_FIELD = 1,
+                   FCS_SIZE = 2; // CRC16
   static const int PRE_SIZE = 1;
+
+private:
 
   uint8_t *_pre;
   uint8_t *_payloadSize;
