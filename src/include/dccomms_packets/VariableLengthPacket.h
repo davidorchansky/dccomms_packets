@@ -12,7 +12,7 @@
 using namespace dccomms;
 namespace dccomms_packets {
 
-class VariableLengthPacket : public Packet {
+class VariableLengthPacket : public dccomms::Packet {
 public:
   VariableLengthPacket();
   void CopyFromRawBuffer(void *buffer);
@@ -47,12 +47,12 @@ private:
 
 class VariableLengthPacketBuilder : public IPacketBuilder {
 public:
-  PacketPtr CreateFromBuffer(void *buffer) {
-    auto pkt = CreateObject<VariableLengthPacket>();
+  dccomms::PacketPtr CreateFromBuffer(void *buffer) {
+    auto pkt = dccomms::CreateObject<VariableLengthPacket>();
     pkt->CopyFromRawBuffer(buffer);
     return pkt;
   }
-  PacketPtr Create() { return CreateObject<VariableLengthPacket>(); }
+  dccomms::PacketPtr Create() { return dccomms::CreateObject<VariableLengthPacket>(); }
 };
 }
 
