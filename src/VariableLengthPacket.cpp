@@ -1,4 +1,4 @@
-#include <class_loader/multi_library_class_loader.h>
+#include <class_loader/multi_library_class_loader.hpp>
 #include <dccomms_packets/VariableLengthPacket.h>
 
 namespace dccomms_packets {
