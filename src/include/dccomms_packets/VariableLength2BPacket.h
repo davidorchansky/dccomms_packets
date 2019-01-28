@@ -15,7 +15,7 @@ namespace dccomms_packets {
 class VariableLength2BPacket : public dccomms::Packet {
 public:
   VariableLength2BPacket();
-  void CopyFromRawBuffer(void *buffer);
+  void DoCopyFromRawBuffer(void *buffer);
   uint8_t *GetPayloadBuffer();
   uint32_t GetPayloadSize();
   int GetPacketSize();

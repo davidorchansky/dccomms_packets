@@ -18,7 +18,7 @@ void VariableLengthPacket::_Init() {
   _fcs = _payload + *_payloadSize;
 }
 
-void VariableLengthPacket::CopyFromRawBuffer(void *buffer) {
+void VariableLengthPacket::DoCopyFromRawBuffer(void *buffer) {
   uint8_t payloadSize = *((uint8_t *)buffer + PRE_SIZE);
   memcpy(GetBuffer(), buffer, payloadSize + _overheadSize);
 }

@@ -17,7 +17,7 @@ void SimplePacket::_Init() {
   _fcs = _payload + PAYLOAD_SIZE;
 }
 
-void SimplePacket::CopyFromRawBuffer(void *buffer) {
+void SimplePacket::DoCopyFromRawBuffer(void *buffer) {
   memcpy(GetBuffer(), buffer, _packetSize);
 }
 

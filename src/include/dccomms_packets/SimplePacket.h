@@ -15,7 +15,7 @@ namespace dccomms_packets {
 class SimplePacket : public Packet {
 public:
   SimplePacket(int payloadSize, FCS fcs = CRC16);
-  void CopyFromRawBuffer(void *buffer);
+  void DoCopyFromRawBuffer(void *buffer);
   uint8_t *GetPayloadBuffer();
   uint32_t GetPayloadSize();
   int GetPacketSize();

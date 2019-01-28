@@ -18,7 +18,7 @@ void VariableLength2BPacket::_Init() {
   _fcs = _payload + _GetPayloadSize();
 }
 
-void VariableLength2BPacket::CopyFromRawBuffer(void *buffer) {
+void VariableLength2BPacket::DoCopyFromRawBuffer(void *buffer) {
   uint8_t *ownbuf = GetBuffer();
   uint8_t *curptr = (uint8_t*) buffer;
   uint32_t headSize = PRE_SIZE + PAYLOAD_SIZE_FIELD;
