@@ -1,5 +1,5 @@
-#include <dccomms_packets/SimplePacket.h>
 #include <class_loader/multi_library_class_loader.hpp>
+#include <dccomms_packets/SimplePacket.h>
 
 namespace dccomms_packets {
 SimplePacket::SimplePacket(int payloadSize, FCS fcs) {
@@ -68,10 +68,12 @@ bool SimplePacket::_CheckFCS() {
   }
 }
 bool SimplePacket::PacketIsOk() { return _CheckFCS(); }
+PacketPtr SimplePacket::Create() {
+  return CreateObject<SimplePacket>(PAYLOAD_SIZE,
+                                    FCS_SIZE == 2 ? CRC16 : NO_FCS);
+}
 
 CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder20crc16, IPacketBuilder)
 CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder9crc16, IPacketBuilder)
 CLASS_LOADER_REGISTER_CLASS(SimplePacketBuilder109crc16, IPacketBuilder)
-}
-
-
+} // namespace dccomms_packets

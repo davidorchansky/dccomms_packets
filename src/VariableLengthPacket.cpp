@@ -67,6 +67,8 @@ bool VariableLengthPacket::_CheckFCS() {
   return crc == 0;
 }
 bool VariableLengthPacket::PacketIsOk() { return _CheckFCS(); }
-
+PacketPtr VariableLengthPacket::Create(){
+    return CreateObject<VariableLengthPacket>();
+}
 CLASS_LOADER_REGISTER_CLASS(VariableLengthPacketBuilder, IPacketBuilder)
 }

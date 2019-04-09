@@ -28,6 +28,7 @@ public:
   uint32_t SetPayload(uint8_t *data, uint32_t size);
 
   void UpdateFCS();
+  PacketPtr Create();
 
 private:
   int PAYLOAD_SIZE, FCS_SIZE;

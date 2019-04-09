@@ -98,6 +98,8 @@ bool VariableLength2BPacket::_CheckFCS() {
   return crc == 0;
 }
 bool VariableLength2BPacket::PacketIsOk() { return _CheckFCS(); }
-
+PacketPtr VariableLength2BPacket::Create(){
+    return CreateObject<VariableLength2BPacket>();
+}
 CLASS_LOADER_REGISTER_CLASS(VariableLength2BPacketBuilder, IPacketBuilder)
 }

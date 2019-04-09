@@ -23,6 +23,7 @@ public:
   void PayloadUpdated(uint32_t payloadSize);
 
   bool PacketIsOk();
+  PacketPtr Create();
 
   void GetPayload(void *copy, int size);
   uint32_t SetPayload(uint8_t *data, uint32_t size);
