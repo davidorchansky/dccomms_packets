@@ -21,6 +21,13 @@ public:
   int GetPacketSize();
   void Read(Stream *comms);
   void PayloadUpdated(uint32_t payloadSize);
+  void SetSeq(const uint32_t &seq);
+  uint32_t GetSeq();
+  void SetDestAddr(const uint32_t &ddir);
+  uint32_t GetDestAddr();
+  void SetSrcAddr(const uint32_t &sdir);
+  uint32_t GetSrcAddr();
+
 
   bool PacketIsOk();
 
@@ -36,6 +43,7 @@ private:
 
   uint8_t *_pre;
   uint8_t *_payload;
+  uint8_t *_seqByte0, *_seqByte1;
   uint8_t *_fcs;
   int _packetSize;
   void _Init();
@@ -65,17 +73,17 @@ public:
   SimplePacketBuilder20crc16() : SimplePacketBuilder(20, FCS::CRC16) {}
 };
 
-//Used by Operator in wirelress_ardusub
+// Used by Operator in wirelress_ardusub
 class SimplePacketBuilder9crc16 : public SimplePacketBuilder {
 public:
   SimplePacketBuilder9crc16() : SimplePacketBuilder(9, FCS::CRC16) {}
 };
 
-//Used by ROV in wirelress_ardusub
+// Used by ROV in wirelress_ardusub
 class SimplePacketBuilder109crc16 : public SimplePacketBuilder {
 public:
   SimplePacketBuilder109crc16() : SimplePacketBuilder(109, FCS::CRC16) {}
 };
-}
+} // namespace dccomms_packets
 
 #endif // DCCOMMS_PACKETS_SIMPLEPACKET_H_

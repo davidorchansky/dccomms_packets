@@ -14,12 +14,33 @@ void SimplePacket::_Init() {
   _pre = GetBuffer();
   *_pre = 0x55;
   _payload = _pre + PRE_SIZE;
+  _seqByte0 = _payload;
+  _seqByte1 = _payload + 1;
   _fcs = _payload + PAYLOAD_SIZE;
 }
 
 void SimplePacket::DoCopyFromRawBuffer(void *buffer) {
   memcpy(GetBuffer(), buffer, _packetSize);
 }
+
+void SimplePacket::SetSeq(const uint32_t &seq) {
+  *_seqByte0 = seq >> 8;
+  *_seqByte1 = seq & 0xf;
+}
+
+uint32_t SimplePacket::GetSeq() {
+  uint32_t seq = 0;
+  seq = (*_seqByte0 << 8) | *_seqByte1;
+  return seq;
+}
+
+void SimplePacket::SetDestAddr(const uint32_t &ddir) {}
+
+uint32_t SimplePacket::GetDestAddr() { return 0; }
+
+void SimplePacket::SetSrcAddr(const uint32_t &ddir) {}
+
+uint32_t SimplePacket::GetSrcAddr() { return 0; }
 
 inline uint8_t *SimplePacket::GetPayloadBuffer() { return _payload; }
 
