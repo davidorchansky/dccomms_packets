@@ -25,7 +25,7 @@ void SimplePacket::DoCopyFromRawBuffer(void *buffer) {
 
 void SimplePacket::SetSeq(const uint32_t &seq) {
   *_seqByte0 = seq >> 8;
-  *_seqByte1 = seq & 0xf;
+  *_seqByte1 = seq & 0xff;
 }
 
 uint32_t SimplePacket::GetSeq() {
