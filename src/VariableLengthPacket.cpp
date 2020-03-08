@@ -66,7 +66,7 @@ bool VariableLengthPacket::_CheckFCS() {
   uint16_t crc = Checksum::crc16(_payload, *_payloadSize + FCS_SIZE);
   return crc == 0;
 }
-bool VariableLengthPacket::PacketIsOk() { return _CheckFCS(); }
+bool VariableLengthPacket::IsOk() { return _CheckFCS(); }
 PacketPtr VariableLengthPacket::Create(){
     return CreateObject<VariableLengthPacket>();
 }

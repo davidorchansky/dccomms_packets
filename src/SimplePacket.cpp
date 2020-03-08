@@ -34,13 +34,13 @@ uint32_t SimplePacket::GetSeq() {
   return seq;
 }
 
-void SimplePacket::SetDestAddr(const uint32_t &ddir) {}
+void SimplePacket::SetDst(const uint32_t &ddir) {}
 
-uint32_t SimplePacket::GetDestAddr() { return 0; }
+uint32_t SimplePacket::GetDst() { return 0; }
 
-void SimplePacket::SetSrcAddr(const uint32_t &ddir) {}
+void SimplePacket::SetSrc(const uint32_t &ddir) {}
 
-uint32_t SimplePacket::GetSrcAddr() { return 0; }
+uint32_t SimplePacket::GetSrc() { return 0; }
 
 inline uint8_t *SimplePacket::GetPayloadBuffer() { return _payload; }
 
@@ -88,7 +88,7 @@ bool SimplePacket::_CheckFCS() {
     return true;
   }
 }
-bool SimplePacket::PacketIsOk() { return _CheckFCS(); }
+bool SimplePacket::IsOk() { return _CheckFCS(); }
 PacketPtr SimplePacket::Create() {
   return CreateObject<SimplePacket>(PAYLOAD_SIZE,
                                     FCS_SIZE == 2 ? CRC16 : NO_FCS);

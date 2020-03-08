@@ -22,7 +22,7 @@ public:
   void Read(Stream *comms);
   void PayloadUpdated(uint32_t payloadSize);
 
-  bool PacketIsOk();
+  bool IsOk();
   PacketPtr Create();
 
   void GetPayload(void *copy, int size);

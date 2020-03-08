@@ -23,13 +23,13 @@ public:
   void PayloadUpdated(uint32_t payloadSize);
   void SetSeq(const uint32_t &seq);
   uint32_t GetSeq();
-  void SetDestAddr(const uint32_t &ddir);
-  uint32_t GetDestAddr();
-  void SetSrcAddr(const uint32_t &sdir);
-  uint32_t GetSrcAddr();
+  void SetDst(const uint32_t &ddir);
+  uint32_t GetDst();
+  void SetSrc(const uint32_t &sdir);
+  uint32_t GetSrc();
 
 
-  bool PacketIsOk();
+  bool IsOk();
 
   void GetPayload(void *copy, int size);
   uint32_t SetPayload(uint8_t *data, uint32_t size);

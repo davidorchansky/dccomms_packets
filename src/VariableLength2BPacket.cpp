@@ -97,7 +97,7 @@ bool VariableLength2BPacket::_CheckFCS() {
   uint16_t crc = Checksum::crc16(_payload, psize + FCS_SIZE);
   return crc == 0;
 }
-bool VariableLength2BPacket::PacketIsOk() { return _CheckFCS(); }
+bool VariableLength2BPacket::IsOk() { return _CheckFCS(); }
 PacketPtr VariableLength2BPacket::Create(){
     return CreateObject<VariableLength2BPacket>();
 }
