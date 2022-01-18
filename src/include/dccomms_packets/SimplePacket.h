@@ -12,7 +12,7 @@
 using namespace dccomms;
 namespace dccomms_packets {
 
-class SimplePacket : public Packet {
+class SimplePacket : public dccomms::Packet {
 public:
   SimplePacket(int payloadSize, FCS fcs = CRC16);
   void DoCopyFromRawBuffer(void *buffer);
@@ -56,12 +56,12 @@ public:
     _payloadSize = payloadSize;
     _fcs = fcs;
   }
-  PacketPtr CreateFromBuffer(void *buffer) {
-    auto pkt = CreateObject<SimplePacket>(_payloadSize, _fcs);
+  dccomms::PacketPtr CreateFromBuffer(void *buffer) {
+    auto pkt = dccomms::CreateObject<SimplePacket>(_payloadSize, _fcs);
     pkt->CopyFromRawBuffer(buffer);
     return pkt;
   }
-  PacketPtr Create() { return CreateObject<SimplePacket>(_payloadSize, _fcs); }
+  dccomms::PacketPtr Create() { return dccomms::CreateObject<SimplePacket>(_payloadSize, _fcs); }
 
 private:
   int _payloadSize;
